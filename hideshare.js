@@ -1,4 +1,4 @@
-/*! hideshare - v0.1.0 - 2013-08-27
+/*! hideshare - v0.1.0 - 2013-08-28
 * https://github.com/arnonate/jQuery-FASS-Widget
 * Copyright (c) 2013 Nate Arnold; Licensed MIT */
 (function($) {
@@ -24,20 +24,30 @@
           googleplusSnippet = '<li><a class="hideshare-google-plus" href="#" onclick="shareGooglePlus(); return false;"><i class="icon-google-plus icon-large"></i><span>Google Plus</span></a></li>',
           linkedinSnippet = '<li><a class="hideshare-linkedin" href="#" onclick="shareLinkedIn(); return false;"><i class="icon-linkedin icon-large"></i><span>Linked In</span></a></li>';
 
-      if (opts.facebook = true) {
+      if (opts.facebook) {
         output = facebookSnippet;
+      } else {
+        output = "";
       }
-      if (opts.twitter = true) {
+      if (opts.twitter) {
         output += twitterSnippet;
+      } else {
+        output = output;
       }
-      if (opts.pinterest = true) {
+      if (opts.pinterest) {
         output += pinterestSnippet;
+      } else {
+        output = output;
       }
-      if (opts.googleplus = true) {
+      if (opts.googleplus) {
         output += googleplusSnippet;
+      } else {
+        output = output;
       }
-      if (opts.linkedin = true) {
+      if (opts.linkedin) {
         output += linkedinSnippet;
+      } else {
+        output = output;
       }
 
       shareFacebook = function() {
