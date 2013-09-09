@@ -2,18 +2,20 @@
 <head>
   <title>HIDESHARE Social Sharing jQuery Plugin</title>
   <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-  <link href="../hideshare.css" rel="stylesheet">
+  <link href="../../dist/hideshare.css" rel="stylesheet">
 </head>
 <body>
   <img src="http://farm7.staticflickr.com/6213/6243090894_8b8dd862cd.jpg">
-  <a class="share" href="#">SHARE ME</a>
+  <a class="share" href="#">share me</a>
   <a href="https://github.com/arnonate/hideshare"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
   <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-  <script src="../hideshare.min.js"></script>
+  <script src="../../dist/hideshare.min.js"></script>
   <script>
     $(document).ready(function() {
-      $(".share").hideshare({
-        media: "http://farm7.staticflickr.com/6213/6243090894_8b8dd862cd.jpg",
+      $('.share').hideshare({
+        link: 'http://hideshare.com',
+        media: 'http://farm7.staticflickr.com/6213/6243090894_8b8dd862cd.jpg',
+        position: 'bottom',
         linkedin: false
       });
     });

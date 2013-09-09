@@ -53,7 +53,7 @@
       pinterest: true,
       googleplus: true,
       linkedin: true,
-      placement: 'bottom'
+      position: 'bottom'
     },
 
     init: function() {
@@ -67,11 +67,11 @@
           shareTitle = this.config.title,
           shareLink = this.config.link,
           shareMedia = this.config.media,
-          facebookTemplate = '<li><a class="hideshare-facebook" href="#"><i class="icon-facebook icon-large"></i><span>Facebook</span></a></li>',
-          twitterTemplate = '<li><a class="hideshare-twitter" href="#"><i class="icon-twitter icon-large"></i><span>Twitter</span></a></li>',
-          pinterestTemplate = '<li><a class="hideshare-pinterest" href="#" data-pin-do="buttonPin" data-pin-config="above"><i class="icon-pinterest icon-large"></i><span>Pinterest</span></a></li>',
-          googleplusTemplate = '<li><a class="hideshare-google-plus" href="#"><i class="icon-google-plus icon-large"></i><span>Google Plus</span></a></li>',
-          linkedinTemplate = '<li><a class="hideshare-linkedin" href="#"><i class="icon-linkedin icon-large"></i><span>Linked In</span></a></li>';
+          facebookTemplate = '<li><a class="hideshare-facebook" href="#"><i class="icon-facebook icon-2x"></i><span>Facebook</span></a></li>',
+          twitterTemplate = '<li><a class="hideshare-twitter" href="#"><i class="icon-twitter icon-2x"></i><span>Twitter</span></a></li>',
+          pinterestTemplate = '<li><a class="hideshare-pinterest" href="#" data-pin-do="buttonPin" data-pin-config="above"><i class="icon-pinterest icon-2x"></i><span>Pinterest</span></a></li>',
+          googleplusTemplate = '<li><a class="hideshare-google-plus" href="#"><i class="icon-google-plus icon-2x"></i><span>Google Plus</span></a></li>',
+          linkedinTemplate = '<li><a class="hideshare-linkedin" href="#"><i class="icon-linkedin icon-2x"></i><span>Linked In</span></a></li>';
 
       if (this.config.facebook) {
         output = facebookTemplate;
@@ -99,13 +99,13 @@
         output = output;
       }
 
-      var hideshareList = '<ul class="hideshare-list" style="display: none;">' + output + '</ul>';
+      var hideshareList = '<ul class="hideshare-list ' + this.config.position + '" style="display: none;">' + output + '</ul>';
 
       this.$elem.addClass("hideshare-btn").wrap("<div class='hideshare-wrap' />");
       $(hideshareList).insertAfter(this.$elem);
 
       $(".hideshare-btn").click(function() {
-        $(".hideshare-list").slideToggle();
+        $(".hideshare-list").toggle();
         return false;
       });
 
@@ -155,9 +155,9 @@
 
   Hideshare.defaults = Hideshare.prototype.defaults;
 
-  $.fn.hideshare = function() {
+  $.fn.hideshare = function(options) {
     return this.each(function() {
-      new Hideshare(this).init();
+      new Hideshare(this, options).init();
     });
   };
 
