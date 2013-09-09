@@ -2,6 +2,8 @@
 
 jQuery plugin for inserting social sharing functionality. Requires that Font-Awesome fonts and CSS be installed.
 
+GitHub page found at http://arnonate.github.io/hideshare/
+
 ## Demo
 A demo can be found at http://natearnold.me/hideshare/example/
 
