@@ -55,14 +55,16 @@ The following options may be configured:
 <script>
 $(document).ready(function() {
   $(".share").hideshare({
-    link: "",         // Link to URL defaults to document.URL
-    title: "",        // Title for social post defaults to document.title
-    media: "",        // Link to image file defaults to null
-    facebook: true,   // Turns on Facebook sharing
-    twitter: true,    // Turns on Twitter sharing
-    pinterest: true,  // Turns on Pinterest sharing
-    googleplus: true, // Turns on Google Plus sharing
-    linkedin: true    // Turns on LinkedIn sharing
+    link: "",           // Link to URL defaults to document.URL
+    title: "",          // Title for social post defaults to document.title
+    media: "",          // Link to image file defaults to null
+    facebook: true,     // Turns on Facebook sharing
+    twitter: true,      // Turns on Twitter sharing
+    pinterest: true,    // Turns on Pinterest sharing
+    googleplus: true,   // Turns on Google Plus sharing
+    linkedin: true,     // Turns on LinkedIn sharing
+    position: "bottom", // Options: Top, Bottom, Left, Right
+    speed: 50           // Speed of transition
   });
 });
 </script>
@@ -75,11 +77,19 @@ The following styles are necessary for display:
 ```html
 <style>
 .hideshare-wrap {
+  position: relative;
+}
+.hideshare-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   margin: 0;
   padding: 0;
+  list-style: none;
   text-align: center;
 }
-.hideshare-wrap li {
+.hideshare-list li {
   display: inline-block;
   zoom: 1;
   *display: inline;
