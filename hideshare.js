@@ -1,4 +1,4 @@
-/*! hideshare - v0.1.0 - 2013-09-09
+/*! hideshare - v0.1.0 - 2013-09-11
 * https://github.com/arnonate/jQuery-FASS-Widget
 * Copyright (c) 2013 Nate Arnold; Licensed MIT */
 /* ========================================================================
@@ -53,7 +53,8 @@
       pinterest: true,
       googleplus: true,
       linkedin: true,
-      position: 'bottom'
+      position: "bottom",
+      speed: 100
     },
 
     init: function() {
@@ -63,65 +64,141 @@
     },
 
     wrapHideshare: function() {
-      var output = null,
+      var output = output,
+          width = this.$elem.outerWidth(),
+          height = this.$elem.outerHeight(),
+          liWidth = 0,
+          placement = this.config.position,
+          transition = this.config.speed,
           shareTitle = this.config.title,
           shareLink = this.config.link,
           shareMedia = this.config.media,
-          facebookTemplate = '<li><a class="hideshare-facebook" href="#"><i class="icon-facebook icon-2x"></i><span>Facebook</span></a></li>',
-          twitterTemplate = '<li><a class="hideshare-twitter" href="#"><i class="icon-twitter icon-2x"></i><span>Twitter</span></a></li>',
-          pinterestTemplate = '<li><a class="hideshare-pinterest" href="#" data-pin-do="buttonPin" data-pin-config="above"><i class="icon-pinterest icon-2x"></i><span>Pinterest</span></a></li>',
-          googleplusTemplate = '<li><a class="hideshare-google-plus" href="#"><i class="icon-google-plus icon-2x"></i><span>Google Plus</span></a></li>',
-          linkedinTemplate = '<li><a class="hideshare-linkedin" href="#"><i class="icon-linkedin icon-2x"></i><span>Linked In</span></a></li>';
+          facebookTemplate = '<li><a class="hideshare-facebook" href="#"><i class="icon-facebook-sign icon-2x"></i><span>Facebook</span></a></li>',
+          twitterTemplate = '<li><a class="hideshare-twitter" href="#"><i class="icon-twitter-sign icon-2x"></i><span>Twitter</span></a></li>',
+          pinterestTemplate = '<li><a class="hideshare-pinterest" href="#" data-pin-do="buttonPin" data-pin-config="above"><i class="icon-pinterest-sign icon-2x"></i><span>Pinterest</span></a></li>',
+          googleplusTemplate = '<li><a class="hideshare-google-plus" href="#"><i class="icon-google-plus-sign icon-2x"></i><span>Google Plus</span></a></li>',
+          linkedinTemplate = '<li><a class="hideshare-linkedin" href="#"><i class="icon-linkedin-sign icon-2x"></i><span>Linked In</span></a></li>';
 
       if (this.config.facebook) {
         output = facebookTemplate;
+        liWidth += 40;
       } else {
         output = "";
+        liWidth = liWidth;
       }
       if (this.config.twitter) {
         output += twitterTemplate;
+        liWidth += 40;
       } else {
         output = output;
+        liWidth = liWidth;
       }
       if (this.config.pinterest) {
         output += pinterestTemplate;
+        liWidth += 40;
       } else {
         output = output;
+        liWidth = liWidth;
       }
       if (this.config.googleplus) {
         output += googleplusTemplate;
+        liWidth += 40;
       } else {
         output = output;
+        liWidth = liWidth;
       }
       if (this.config.linkedin) {
         output += linkedinTemplate;
+        liWidth += 40;
       } else {
         output = output;
+        liWidth = liWidth;
+      }
+      if (liWidth < width) {
+        liWidth = width;
       }
 
-      var hideshareList = '<ul class="hideshare-list ' + this.config.position + '" style="display: none;">' + output + '</ul>';
+      // Construct sharing list
+      var hideshareList = '<ul class="hideshare-list" style="display: none; width: ' + liWidth + 'px' + '">' + output + '</ul>';
 
-      this.$elem.addClass("hideshare-btn").wrap("<div class='hideshare-wrap' />");
+      // Wrap button
+      this.$elem.addClass("hideshare-btn").wrap("<div class='hideshare-wrap' style='width:" + width + "px; height:" + height + "px;' />");
+
+      // Insert sharing button list
       $(hideshareList).insertAfter(this.$elem);
 
-      $(".hideshare-btn").click(function() {
-        $(".hideshare-list").toggle();
+      // Get placement of share buttons
+      var getPlacement = function(placement, width, height, speed) {
+
+        var styles = {};
+
+        if (placement === "right") {
+          styles = {
+            "left"    : width + 10 + "px",
+            "right"   : -(width + 10) + "px",
+            "opacity" : "toggle"
+          };
+        } else if (placement === "left") {
+          styles = {
+            "left"    : -(width + 10) + "px",
+            "right"   : width + 10 + "px",
+            "opacity" : "toggle"
+          };
+        } else if (placement === "top") {
+          styles = {
+            "top"     : -(height + 10) + "px",
+            "bottom"  : height + 10 + "px",
+            "opacity" : "toggle"
+          };
+        } else /* placement === "bottom" */ {
+          styles = {
+            "top"     : height + 10 + "px",
+            "bottom"  : -(height + 10) + "px",
+            "left"    : "0px",
+            "opacity" : "toggle"
+          };
+        }
+
+        $(".hideshare-list").animate(styles, speed).addClass("shown");
+      };
+
+      // Return to original position
+      var returnPlacement = function(speed) {
+        var styles = {
+          "top"     : "0px",
+          "left"    : "0px",
+          "opacity" : "toggle"
+        };
+
+        $(".hideshare-list").animate(styles, speed).removeClass("shown");
+      };
+
+      // Toggle sharing on button click
+      this.$elem.click(function() {
+        var list = $(".hideshare-list");
+        if (list.hasClass("shown")){
+          returnPlacement(transition);
+        } else {
+          getPlacement(placement, width, height, transition);
+        }
         return false;
       });
 
-      var shareFacebook = function () {
+
+      // SHARING FUNCTIONS
+      var shareFacebook = function() {
         window.open('//www.facebook.com/share.php?s=100&p[url]=' + encodeURIComponent(shareLink) + '&p[images][0]=' + encodeURIComponent(shareMedia) + '&p[title]=' + encodeURIComponent(shareTitle),'Facebook','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
       };
-      var shareTwitter = function () {
+      var shareTwitter = function() {
         window.open('//twitter.com/home?status=' + encodeURIComponent(shareTitle) + '+' + encodeURIComponent(shareLink),'Twitter','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
       };
-      var sharePinterest = function () {
+      var sharePinterest = function() {
         window.open('//pinterest.com/pin/create/button/?url=' + encodeURIComponent(shareLink) + '&media=' + encodeURIComponent(shareMedia) + '&description=' + encodeURIComponent(shareTitle),'Pinterest','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
       };
-      var shareGooglePlus = function () {
+      var shareGooglePlus = function() {
         window.open('//plus.google.com/share?url=' + encodeURIComponent(shareLink),'GooglePlus','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
       };
-      var shareLinkedIn = function () {
+      var shareLinkedIn = function() {
         window.open('//www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(shareLink) + '&title=' + encodeURIComponent(shareTitle) + '&source=' + encodeURIComponent(shareLink),'LinkedIn','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
       };
 
