@@ -58,6 +58,7 @@ $(document).ready(function() {
     link: "",           // Link to URL defaults to document.URL
     title: "",          // Title for social post defaults to document.title
     media: "",          // Link to image file defaults to null
+    decription: "",     // Description for Facebook summary
     facebook: true,     // Turns on Facebook sharing
     twitter: true,      // Turns on Twitter sharing
     pinterest: true,    // Turns on Pinterest sharing

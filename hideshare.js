@@ -30,6 +30,8 @@
   OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/*global jQuery:false, window:false, document:false */
+
 ;(function(window, $) {
 
   "use strict";
@@ -47,6 +49,7 @@
     defaults: {
       link: document.URL,
       title: document.title,
+      description: '',
       media: null,
       facebook: true,
       twitter: true,
@@ -73,11 +76,12 @@
           shareTitle = this.config.title,
           shareLink = this.config.link,
           shareMedia = this.config.media,
-          facebookTemplate = '<li><a class="hideshare-facebook" href="#"><i class="icon-facebook-sign icon-2x"></i><span>Facebook</span></a></li>',
-          twitterTemplate = '<li><a class="hideshare-twitter" href="#"><i class="icon-twitter-sign icon-2x"></i><span>Twitter</span></a></li>',
-          pinterestTemplate = '<li><a class="hideshare-pinterest" href="#" data-pin-do="buttonPin" data-pin-config="above"><i class="icon-pinterest-sign icon-2x"></i><span>Pinterest</span></a></li>',
-          googleplusTemplate = '<li><a class="hideshare-google-plus" href="#"><i class="icon-google-plus-sign icon-2x"></i><span>Google Plus</span></a></li>',
-          linkedinTemplate = '<li><a class="hideshare-linkedin" href="#"><i class="icon-linkedin-sign icon-2x"></i><span>Linked In</span></a></li>';
+          shareDescription = this.config.description,
+          facebookTemplate = '<li><a class="hideshare-facebook" href="#"><i class="fa fa-facebook-square fa-2x"></i><span>Facebook</span></a></li>',
+          twitterTemplate = '<li><a class="hideshare-twitter" href="#"><i class="fa fa-twitter-square fa-2x"></i><span>Twitter</span></a></li>',
+          pinterestTemplate = '<li><a class="hideshare-pinterest" href="#" data-pin-do="buttonPin" data-pin-config="above"><i class="fa fa-pinterest-square fa-2x"></i><span>Pinterest</span></a></li>',
+          googleplusTemplate = '<li><a class="hideshare-google-plus" href="#"><i class="fa fa-google-plus-square fa-2x"></i><span>Google Plus</span></a></li>',
+          linkedinTemplate = '<li><a class="hideshare-linkedin" href="#"><i class="fa fa-linkedin-square fa-2x"></i><span>Linked In</span></a></li>';
 
       if (this.config.facebook) {
         output = facebookTemplate;
@@ -187,10 +191,10 @@
 
       // SHARING FUNCTIONS
       var shareFacebook = function() {
-        window.open('//www.facebook.com/share.php?s=100&p[url]=' + encodeURIComponent(shareLink) + '&p[images][0]=' + encodeURIComponent(shareMedia) + '&p[title]=' + encodeURIComponent(shareTitle),'Facebook','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+        window.open('//www.facebook.com/share.php?s=100&p[url]=' + encodeURIComponent(shareLink) + '&p[images][0]=' + encodeURIComponent(shareMedia) + '&p[title]=' + encodeURIComponent(shareTitle) + '&p[summary]=' + encodeURIComponent(shareDescription),'Facebook','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
       };
       var shareTwitter = function() {
-        window.open('//twitter.com/home?status=' + encodeURIComponent(shareTitle) + '+' + encodeURIComponent(shareLink),'Twitter','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+        window.open('https://twitter.com/intent/tweet?original_referer=' + encodeURIComponent(shareLink) + '&text=' + encodeURIComponent(shareTitle) + '%20' + encodeURIComponent(shareLink),'Twitter','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
       };
       var sharePinterest = function() {
         window.open('//pinterest.com/pin/create/button/?url=' + encodeURIComponent(shareLink) + '&media=' + encodeURIComponent(shareMedia) + '&description=' + encodeURIComponent(shareTitle),'Pinterest','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
