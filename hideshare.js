@@ -73,11 +73,11 @@
           shareTitle = this.config.title,
           shareLink = this.config.link,
           shareMedia = this.config.media,
-          facebookTemplate = '<li><a class="hideshare-facebook" href="#"><i class="icon-facebook-sign icon-2x"></i><span>Facebook</span></a></li>',
-          twitterTemplate = '<li><a class="hideshare-twitter" href="#"><i class="icon-twitter-sign icon-2x"></i><span>Twitter</span></a></li>',
-          pinterestTemplate = '<li><a class="hideshare-pinterest" href="#" data-pin-do="buttonPin" data-pin-config="above"><i class="icon-pinterest-sign icon-2x"></i><span>Pinterest</span></a></li>',
-          googleplusTemplate = '<li><a class="hideshare-google-plus" href="#"><i class="icon-google-plus-sign icon-2x"></i><span>Google Plus</span></a></li>',
-          linkedinTemplate = '<li><a class="hideshare-linkedin" href="#"><i class="icon-linkedin-sign icon-2x"></i><span>Linked In</span></a></li>';
+          facebookTemplate = '<li><a class="hideshare-facebook" href="#"><i class="fa fa-facebook-square fa-2x"></i><span>Facebook</span></a></li>',
+          twitterTemplate = '<li><a class="hideshare-twitter" href="#"><i class="fa fa-twitter-square fa-2x"></i><span>Twitter</span></a></li>',
+          pinterestTemplate = '<li><a class="hideshare-pinterest" href="#" data-pin-do="buttonPin" data-pin-config="above"><i class="fa fa-pinterest-square fa-2x"></i><span>Pinterest</span></a></li>',
+          googleplusTemplate = '<li><a class="hideshare-google-plus" href="#"><i class="fa fa-google-plus-square fa-2x"></i><span>Google Plus</span></a></li>',
+          linkedinTemplate = '<li><a class="hideshare-linkedin" href="#"><i class="fa fa-linkedin-square fa-2x"></i><span>Linked In</span></a></li>';
 
       if (this.config.facebook) {
         output = facebookTemplate;
