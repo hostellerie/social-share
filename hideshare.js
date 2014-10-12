@@ -127,12 +127,13 @@
 
       // Wrap button
       this.$elem.addClass("hideshare-btn").wrap("<div class='hideshare-wrap' style='width:" + width + "px; height:" + height + "px;' />");
+      this.$wrap = this.$elem.parent();
 
       // Insert sharing button list
       $(hideshareList).insertAfter(this.$elem);
 
       // Get placement of share buttons
-      var getPlacement = function(placement, width, height, speed) {
+      var getPlacement = function(placement, width, height, speed, $wrap) {
 
         var styles = {};
 
@@ -163,27 +164,28 @@
           };
         }
 
-        $(".hideshare-list").animate(styles, speed).addClass("shown");
+        $wrap.find(".hideshare-list").animate(styles, speed).addClass("shown");
       };
 
       // Return to original position
-      var returnPlacement = function(speed) {
+      var returnPlacement = function(speed, $wrap) {
         var styles = {
           "top"     : "0px",
           "left"    : "0px",
           "opacity" : "toggle"
         };
 
-        $(".hideshare-list").animate(styles, speed).removeClass("shown");
+        $wrap.find(".hideshare-list").animate(styles, speed).removeClass("shown");
       };
 
       // Toggle sharing on button click
-      this.$elem.click(function() {
-        var list = $(".hideshare-list");
+      this.$elem.click(function(e) {
+        var $wrap = $(e.currentTarget).parent();
+        var list = $wrap.find(".hideshare-list");
         if (list.hasClass("shown")){
-          returnPlacement(transition);
+          returnPlacement(transition, $wrap);
         } else {
-          getPlacement(placement, width, height, transition);
+          getPlacement(placement, width, height, transition, $wrap);
         }
         return false;
       });
@@ -206,27 +208,28 @@
         window.open('//www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(shareLink) + '&title=' + encodeURIComponent(shareTitle) + '&source=' + encodeURIComponent(shareLink),'LinkedIn','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
       };
 
-      $(".hideshare-facebook").click(function() {
+
+      this.$wrap.find(".hideshare-facebook").click(function() {
         shareFacebook();
         return false;
       });
 
-      $(".hideshare-twitter").click(function() {
+      this.$wrap.find(".hideshare-twitter").click(function() {
         shareTwitter();
         return false;
       });
 
-      $(".hideshare-pinterest").click(function() {
+      this.$wrap.find(".hideshare-pinterest").click(function() {
         sharePinterest();
         return false;
       });
 
-      $(".hideshare-google-plus").click(function() {
+      this.$wrap.find(".hideshare-google-plus").click(function() {
         shareGooglePlus();
         return false;
       });
 
-      $(".hideshare-linkedin").click(function() {
+      this.$wrap.find(".hideshare-linkedin").click(function() {
         shareLinkedIn();
         return false;
       });
